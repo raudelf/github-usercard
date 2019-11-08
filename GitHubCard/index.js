@@ -2,7 +2,8 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-console.log('Promise', axios.get('https://api.github.com/users/raudelf'));
+console.log('Promise', axios
+.get('https://api.github.com/users/raudelf'));
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -72,8 +73,25 @@ const followerCards = (user) => {
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
+  // Classes
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
   // Content
+  profImg.src = user.data.avatar_url;
+  name.textContent = `${user.data.name}`;
+  userName.textContent = `${user.data.login}`;
+  location.textContent = `${user.data.location}`;
+  gitPage.textContent = `Github Page`;
+  gitPage.src = user.data.html_url;
+  followers.textContent = `${user.data.followers}`;
+  following.textContent = `${user.data.following}`;
+  bio.textContent = `${user.data.bio}`;
   
+  // Execute
+  return card;
 };
 /* List of LS Instructors Github username's: 
   tetondan
