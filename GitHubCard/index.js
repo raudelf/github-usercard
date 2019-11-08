@@ -46,7 +46,7 @@ const followersArray = [];
 </div>
 
 */
-const followerCards = (user) => {
+const followerCards = (data) => {
 
   // Elements
   const card = document.createElement('div');
@@ -80,19 +80,33 @@ const followerCards = (user) => {
   userName.classList.add('username');
 
   // Content
-  profImg.src = user.data.avatar_url;
-  name.textContent = `${user.data.name}`;
-  userName.textContent = `${user.data.login}`;
-  location.textContent = `${user.data.location}`;
+  profImg.src = data.avatar_url;
+  name.textContent = `${data.name}`;
+  userName.textContent = `${data.login}`;
+  location.textContent = `${data.location}`;
   gitPage.textContent = `Github Page`;
-  gitPage.src = user.data.html_url;
-  followers.textContent = `${user.data.followers}`;
-  following.textContent = `${user.data.following}`;
-  bio.textContent = `${user.data.bio}`;
+  gitPage.src = data.html_url;
+  followers.textContent = `${data.followers}`;
+  following.textContent = `${data.following}`;
+  bio.textContent = `${data.bio}`;
   
   // Execute
   return card;
 };
+
+const cards = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/raudelf')
+.then(resolved => {
+  cards.appendChild(followerCards(resolved.data));
+  console.log('res', resolved);
+  return resolved;
+})
+.catch(err => {
+  console.log('Unable to retrieve data', err)
+});
+
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
