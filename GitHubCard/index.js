@@ -97,13 +97,22 @@ const followerCards = (data) => {
 const cards = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/raudelf')
+  .then(resolved => {
+    cards.appendChild(followerCards(resolved.data));
+    console.log('res', resolved);
+    return resolved;
+  })
+  .catch(err => {
+    console.log('Unable to retrieve data', err)
+  });
+
+axios.get('https://api.github.com/users/raudelf/followers')
 .then(resolved => {
-  cards.appendChild(followerCards(resolved.data));
-  console.log('res', resolved);
-  return resolved;
+  const users = resolved.data;
+  return followersArray.push(users);
 })
 .catch(err => {
-  console.log('Unable to retrieve data', err)
+  console.log ('Unable to retrieve follower data', err)
 });
 
 
